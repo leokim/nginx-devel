@@ -2,7 +2,7 @@
 # Date created:				11 Oct 2004
 # Whom:					osa
 #
-# $FreeBSD: ports/www/nginx-devel/Makefile,v 1.438 2012/02/29 15:51:25 osa Exp $
+# $FreeBSD: ports/www/nginx-devel/Makefile,v 1.440 2012/02/29 19:53:16 osa Exp $
 #
 
 PORTNAME=	nginx
@@ -325,9 +325,11 @@ EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ngx_http_streaming_module.c
 .endif
 
 .if defined(WITH_HTTP_NOTICE_MODULE)
-MASTER_SITES+=	http://xph.us/dist/nginx-notice/:notice2
-DISTFILES+=	nginx-notice-2.tar.gz:notice2
-CONFIGURE_ARGS+=--add-module=${WRKDIR}/nginx-notice-2
+GIT_NOTICE_MODULE_VERSION=	0-g3c95966
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/kr/nginx-notice/tarball/master/:notice
+DISTFILES+=	kr-nginx-notice-${GIT_NOTICE_MODULE_VERSION}.tar.gz:notice
+CONFIGURE_ARGS+=--add-module=${WRKDIR}/kr-nginx-notice-${GIT_NOTICE_MODULE_VERSION:S/^0-g//}
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ngx_http_notice_module.c
 .endif
 
@@ -432,8 +434,7 @@ CONFIGURE_ARGS+=--with-http_xslt_module
 
 .if defined(WITH_HTTP_ZIP_MODULE)
 NGINX_ZIP_MODULE_VERSION=	1.1.6
-MASTER_SITES+=	${MASTER_SITE_GOOGLE_CODE}:zip
-PROJECTHOST=	mod-zip
+MASTER_SITES+=	http://mod-zip.googlecode.com/files/:zip
 DISTFILES+=	mod_zip-${NGINX_ZIP_MODULE_VERSION}.tar.gz:zip
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/mod_zip-${NGINX_ZIP_MODULE_VERSION}
 .endif
@@ -556,9 +557,7 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/agentzh-memc-nginx-module-${GIT_MEMC_MODU
 
 .if defined(WITH_NAXSI_MODULE)
 NGINX_NAXSI_MODULE_VERSION=	0.43
-FETCH_ARGS=	-pRr
-MASTER_SITES+=	${MASTER_SITE_GOOGLE_CODE}:naxsi
-PROJECTHOST=	naxsi
+MASTER_SITES+=	http://naxsi.googlecode.com/files/:naxsi
 DISTFILES+=	naxsi-${NGINX_NAXSI_MODULE_VERSION}.tar.gz:naxsi
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/naxsi-${NGINX_NAXSI_MODULE_VERSION}/naxsi_src
 .endif
