@@ -80,6 +80,11 @@ OPTIONS=	DEBUG			"Enable nginx debugging" off \
 		GRIDFS_MODULE		"3rd party gridfs module" off \
 		ICONV_MODULE		"3rd party iconv module" off \
 		LUA_MODULE		"3rd party lua module" off \
+		LUA_RESTY_MEMC_LIB	"3rd party LuaRestyMemcachedLibrary" off \
+		LUA_RESTY_MYSQL_LIB	"3rd party LuaRestyMySQLLibrary" off \
+		LUA_RESTY_REDIS_LIB	"3rd party LuaRestyRedisLibrary" off \
+		LUA_RESTY_STRING_LIB	"3rd party LuaRestyStringLibrary" off \
+		LUA_RESTY_UPLOAD_LIB	"3rd party LuaRestyMySQLLibrary" off \
 		MEMC_MODULE		"3rd party memc (memcached) module" off \
 		NAXSI_MODULE		"3rd party naxsi module" off \
 		PASSENGER_MODULE	"3rd party passenger module" off \
@@ -476,7 +481,7 @@ DISTFILES+=	mongodb-mongo-c-driver-v${MONGO_C_DRIVER_VERSION}-${GIT_MONGO_C_DRIV
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/mdirolf-nginx-gridfs-${GIT_GRIDFS_MODULE_VERSION:S/^0-g//}
 .endif
 
-.if defined(WITH_LUA_MODULE)
+.if defined(WITH_LUA_MODULE) || defined(USE_NGINX_LUA)
 LIB_DEPENDS+=	luajit-5.1.2:${PORTSDIR}/lang/luajit
 CONFIGURE_ENV+=	"LUAJIT_INC=${LOCALBASE}/include/luajit-2.0"
 CONFIGURE_ENV+=	"LUAJIT_LIB=${LOCALBASE}/lib"
@@ -488,6 +493,56 @@ MASTER_SITES+=	https://github.com/chaoslawful/lua-nginx-module/tarball/v${NGINX_
 DISTFILES+=	chaoslawful-lua-nginx-module-v${NGINX_LUA_MODULE_VERSION}-${GIT_LUA_MODULE_VERSION}.tar.gz:lua
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/chaoslawful-lua-nginx-module-${GIT_LUA_MODULE_VERSION:S/^0-g//}
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-chaoslawful-lua-nginx-module::config
+.endif
+
+.if defined(WITH_LUA_RESTY_MEMC_LIB)
+USE_NGINX_LUA=	yes
+NGINX_OPENSSL=	yes
+LUA_RESTY_MEMC_LIB_VERSION=	0.06
+GIT_LUA_RESTY_MEMC_LIB_VERSION=	0-g01f9923
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/agentzh/lua-resty-memcached/tarball/v${LUA_RESTY_MEMC_LIB_VERSION}/:lua_resty_memc_lib
+DISTFILES+=	agentzh-lua-resty-memcached-v${LUA_RESTY_MEMC_LIB_VERSION}-${GIT_LUA_RESTY_MEMC_LIB_VERSION}.tar.gz:lua_resty_memc_lib
+.endif
+
+.if defined(WITH_LUA_RESTY_MYSQL_LIB)
+USE_NGINX_LUA=	yes
+NGINX_OPENSSL=	yes
+LUA_RESTY_MYSQL_LIB_VERSION=	0.06
+GIT_LUA_RESTY_MYSQL_LIB_VERSION=0-g2e2d375
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/agentzh/lua-resty-mysql/tarball/v${LUA_RESTY_MYSQL_LIB_VERSION}/:lua_resty_mysql_lib
+DISTFILES+=	agentzh-lua-resty-mysql-v${LUA_RESTY_MYSQL_LIB_VERSION}-${GIT_LUA_RESTY_MYSQL_LIB_VERSION}.tar.gz:lua_resty_mysql_lib
+.endif
+
+.if defined(WITH_LUA_RESTY_REDIS_LIB)
+USE_NGINX_LUA=	yes
+NGINX_OPENSSL=	yes
+LUA_RESTY_REDIS_LIB_VERSION=	0.06
+GIT_LUA_RESTY_REDIS_LIB_VERSION=0-g9cd981d
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/agentzh/lua-resty-redis/tarball/v${LUA_RESTY_REDIS_LIB_VERSION}/:lua_resty_redis_lib
+DISTFILES+=	agentzh-lua-resty-redis-v${LUA_RESTY_REDIS_LIB_VERSION}-${GIT_LUA_RESTY_REDIS_LIB_VERSION}.tar.gz:lua_resty_redis_lib
+.endif
+
+.if defined(WITH_LUA_RESTY_STRING_LIB)
+USE_NGINX_LUA=	yes
+NGINX_OPENSSL=	yes
+LUA_RESTY_STRING_LIB_VERSION=	0.04
+GIT_LUA_RESTY_STRING_LIB_VERSION=	0-g85725e4
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/agentzh/lua-resty-string/tarball/v${LUA_RESTY_STRING_LIB_VERSION}/:lua_resty_string_lib
+DISTFILES+=	agentzh-lua-resty-string-v${LUA_RESTY_STRING_LIB_VERSION}-${GIT_LUA_RESTY_STRING_LIB_VERSION}.tar.gz:lua_resty_string_lib
+.endif
+
+.if defined(WITH_LUA_RESTY_UPLOAD_LIB)
+USE_NGINX_LUA=	yes
+NGINX_OPENSSL=	yes
+LUA_RESTY_UPLOAD_LIB_VERSION=	0.02
+GIT_LUA_RESTY_UPLOAD_LIB_VERSION=	0-gfc7962d
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/agentzh/lua-resty-upload/tarball/v${LUA_RESTY_UPLOAD_LIB_VERSION}/:lua_resty_upload_lib
+DISTFILES+=	agentzh-lua-resty-upload-v${LUA_RESTY_UPLOAD_LIB_VERSION}-${GIT_LUA_RESTY_UPLOAD_LIB_VERSION}.tar.gz:lua_resty_upload_lib
 .endif
 
 .if defined(WITH_MEMC_MODULE)
