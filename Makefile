@@ -481,8 +481,8 @@ LIB_DEPENDS+=	luajit-5.1.2:${PORTSDIR}/lang/luajit
 CONFIGURE_ENV+=	"LUAJIT_INC=${LOCALBASE}/include/luajit-2.0"
 CONFIGURE_ENV+=	"LUAJIT_LIB=${LOCALBASE}/lib"
 USE_NGINX_DEVEL_KIT=	yes
-NGINX_LUA_MODULE_VERSION=	0.4.1
-GIT_LUA_MODULE_VERSION=	0-g204ce2b
+NGINX_LUA_MODULE_VERSION=	0.5.0rc16
+GIT_LUA_MODULE_VERSION=	0-g215a9f7
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/chaoslawful/lua-nginx-module/tarball/v${NGINX_LUA_MODULE_VERSION}/:lua
 DISTFILES+=	chaoslawful-lua-nginx-module-v${NGINX_LUA_MODULE_VERSION}-${GIT_LUA_MODULE_VERSION}.tar.gz:lua
@@ -539,8 +539,8 @@ EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ngx_postgres::config
 .endif
 
 .if defined(WITH_RDS_CSV_MODULE)
-NGINX_RDS_CSV_MODULE_VERSION=	0.04
-GIT_RDS_CSV_MODULE_VERSION=	0-g4cd999b
+NGINX_RDS_CSV_MODULE_VERSION=	0.05rc1
+GIT_RDS_CSV_MODULE_VERSION=	0-g98c7907
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/agentzh/rds-csv-nginx-module/tarball/v${NGINX_RDS_CSV_MODULE_VERSION}/:rdscsv
 DISTFILES+=	agentzh-rds-csv-nginx-module-v${NGINX_RDS_CSV_MODULE_VERSION}-${GIT_RDS_CSV_MODULE_VERSION}.tar.gz:rdscsv
@@ -557,8 +557,8 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/agentzh-rds-json-nginx-module-${GIT_RDS_J
 .endif
 
 .if defined(WITH_REDIS2_MODULE)
-NGINX_REDIS2_MODULE_VERSION=	0.08rc2
-GIT_REDIS2_MODULE_VERSION=	0-g0a8a6b9
+NGINX_REDIS2_MODULE_VERSION=	0.08rc3
+GIT_REDIS2_MODULE_VERSION=	0-g83dd18e
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/agentzh/redis2-nginx-module/tarball/v${NGINX_REDIS2_MODULE_VERSION}/:redis2
 DISTFILES+=	agentzh-redis2-nginx-module-v${NGINX_REDIS2_MODULE_VERSION}-${GIT_REDIS2_MODULE_VERSION}.tar.gz:redis2
@@ -622,8 +622,8 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/gabor-nginx-x-rid-header-${GIT_XRID_MODUL
 .endif
 
 .if defined(WITH_XSS_MODULE)
-NGINX_XSS_MODULE_VERSION=	0.03rc8
-GIT_XSS_MODULE_VERSION=	0-g57e2119
+NGINX_XSS_MODULE_VERSION=	0.03rc9
+GIT_XSS_MODULE_VERSION=	0-gbeddbe1
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/agentzh/xss-nginx-module/tarball/v${NGINX_XSS_MODULE_VERSION}/:xss
 DISTFILES+=	agentzh-xss-nginx-module-v${NGINX_XSS_MODULE_VERSION}-${GIT_XSS_MODULE_VERSION}.tar.gz:xss
@@ -694,8 +694,8 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/calio-form-input-nginx-module-${GIT_FORMI
 .if defined(WITH_ICONV_MODULE)
 LIB_DEPENDS+=	iconv:${PORTSDIR}/converters/libiconv
 USE_NGINX_DEVEL_KIT=	yes
-NGINX_ICONV_MODULE_VERSION=	0.10rc5
-GIT_ICONV_MODULE_VERSION=	0-g4e71946
+NGINX_ICONV_MODULE_VERSION=	0.10rc7
+GIT_ICONV_MODULE_VERSION=	0-gabdac17
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/calio/iconv-nginx-module/tarball/v${NGINX_ICONV_MODULE_VERSION}/:iconv
 DISTFILES+=	calio-iconv-nginx-module-v${NGINX_ICONV_MODULE_VERSION}-${GIT_ICONV_MODULE_VERSION}.tar.gz:iconv
