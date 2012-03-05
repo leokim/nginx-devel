@@ -107,6 +107,8 @@ MAKE_JOBS_SAFE=	yes
 .include <bsd.port.options.mk>
 
 .if defined(WITH_PASSENGER_MODULE)
+LICENSE_COMB=	multi
+LICENSE+=	MIT
 CATEGORIES+=	ruby
 USE_RUBY=	yes
 USE_RAKE=	yes
@@ -611,8 +613,8 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/agentzh-rds-json-nginx-module-${GIT_RDS_J
 .endif
 
 .if defined(WITH_REDIS2_MODULE)
-NGINX_REDIS2_MODULE_VERSION=	0.08rc3
-GIT_REDIS2_MODULE_VERSION=	0-g83dd18e
+NGINX_REDIS2_MODULE_VERSION=	0.08rc4
+GIT_REDIS2_MODULE_VERSION=	0-g5044f16
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/agentzh/redis2-nginx-module/tarball/v${NGINX_REDIS2_MODULE_VERSION}/:redis2
 DISTFILES+=	agentzh-redis2-nginx-module-v${NGINX_REDIS2_MODULE_VERSION}-${GIT_REDIS2_MODULE_VERSION}.tar.gz:redis2
